@@ -20,17 +20,17 @@ app.get('/', (req, res) => {
     // buildings: core.buildings
   })
 })
-io.on('connection', function(socket){
-  console.log('a user connected');
-  socket.on('disconnect', function(){
-    console.log('user disconnected');
-  });
-});
-io.on('connection', function(socket){
-  socket.on('chat message', function(msg){
-    io.emit('chat message', msg);
-  });
-});
+io.on('connection', function (socket) {
+  console.log('a user connected')
+  socket.on('disconnect', function () {
+    console.log('user disconnected')
+  })
+})
+io.on('connection', function (socket) {
+  socket.on('balloon', function (balloon) {
+    io.emit('balloon', balloon)
+  })
+})
 
 http.listen(8001, () => {
   console.log('Listening.. port 8001')
