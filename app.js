@@ -32,6 +32,6 @@ io.on('connection', function (socket) {
   })
 })
 
-http.listen(8001, () => {
-  console.log('Listening.. port 8001')
+http.listen(5000, () => {
+  console.log('Listening.. port 5000')
 })
