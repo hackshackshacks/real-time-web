@@ -8,14 +8,51 @@
 }
 section {
   position: absolute;
-  bottom: -2rem;
+  bottom: ;
   left: 50%;
-  will-change: transform;
-  transform: translateX(-50%) translateZ(0);
+  transform: translateX(-50%);
+}
+button {
+  width: 4rem;
+  height: 4rem;
+  border: 1px solid black;
+}
+button:focus {
+  outline: none;
+}
+#red {
+  background: red;
+}
+#blue {
+  background: blue;
+}
+#yellow {
+  background: yellow;
+}
+#green {
+  background: green;
+}
+#purple {
+  background: purple;
+}
+#pink {
+  background: pink;
+}
+#brown {
+  background: brown;
+}
+#orange {
+  background: orange;
+}
+#white {
+  background: white;
+}
+#black {
+  background: black;
 }
 
 @keyframes float {
   to {
-    transform: translateY(-120vh) translateZ(0);
+    bottom: calc(100vh + 5rem);
   }
 }

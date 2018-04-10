@@ -14,11 +14,7 @@ nunjucks.configure('assets/views', {
 })
 
 app.get('/', (req, res) => {
-  res.render('index.html', {
-    // background: core.backgrounds[helper.randomize(0, core.backgrounds.length)].url,
-    // times: core.times,
-    // buildings: core.buildings
-  })
+  res.render('index.html', {})
 })
 io.on('connection', function (socket) {
   console.log('a user connected')
