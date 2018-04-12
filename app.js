@@ -21,7 +21,7 @@ let nextUserTeam = 'blue'
 let balloonCount = 0
 let blueScore = 0
 let redScore = 0
-let gameDuration = 10
+let gameDuration = 30
 let gameTimer = gameDuration
 let gameActive = true
 
@@ -66,8 +66,14 @@ io.on('connection', function (socket) {
     balloon.id = balloonCount
     io.emit('balloon', balloon)
   })
-  socket.on('destroy', function (id) {
-    io.emit('destroy', id)
+  socket.on('destroy', function (balloon) {
+    io.emit('destroy', balloon.id)
+    if (balloon.team === 'blue') {
+      redScore++
+    } else {
+      blueScore++
+    }
+    io.emit('score', {redScore: redScore, blueScore: blueScore})
   })
   socket.on('score', function (score) {
     if (score === 'red') {

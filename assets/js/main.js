@@ -23,7 +23,7 @@ function createBalloon (balloon) {
   newBalloon.setAttribute('id', balloon.id)
   newBalloon.addEventListener('click', function () {
     if (balloon.team !== myTeam) {
-      socket.emit('destroy', balloon.id)
+      socket.emit('destroy', {id: balloon.id, team: balloon.team})
     }
   })
   newBalloon.addEventListener('animationend', function () {
@@ -77,6 +77,10 @@ socket.on('gameOver', function (team) {
   } else {
     timer.innerHTML = 'Draw!'
   }
+  var remainingBalloons = document.querySelectorAll('.balloon')
+  remainingBalloons.forEach(function (balloon) {
+    document.body.removeChild(balloon)
+  })
   winner.classList.add('end')
   balloonBtn.disabled = true
 })
