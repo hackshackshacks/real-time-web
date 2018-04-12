@@ -69,9 +69,17 @@ io.on('connection', function (socket) {
   socket.on('destroy', function (balloon) {
     io.emit('destroy', balloon.id)
     if (balloon.team === 'blue') {
-      redScore++
+      if (balloon.click) {
+        redScore++
+      } else {
+        blueScore++
+      }
     } else {
-      blueScore++
+      if (balloon.click) {
+        blueScore++
+      } else {
+        redScore++
+      }
     }
     io.emit('score', {redScore: redScore, blueScore: blueScore})
   })

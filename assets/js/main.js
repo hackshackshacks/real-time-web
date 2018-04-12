@@ -8,13 +8,6 @@ var timer = document.querySelector('#time')
 var winner = document.querySelector('#winner')
 var myTeam
 
-balloonBtn.addEventListener('click', function (e) {
-  var balloon = {
-    x: ((e.pageX - 80) / window.innerWidth) * 100,
-    team: myTeam
-  }
-  socket.emit('balloon', balloon)
-})
 function createBalloon (balloon) {
   var newBalloon = document.createElement('div')
   newBalloon.classList.add('balloon')
@@ -23,12 +16,11 @@ function createBalloon (balloon) {
   newBalloon.setAttribute('id', balloon.id)
   newBalloon.addEventListener('click', function () {
     if (balloon.team !== myTeam) {
-      socket.emit('destroy', {id: balloon.id, team: balloon.team})
+      socket.emit('destroy', {id: balloon.id, team: balloon.team, click: true})
     }
   })
   newBalloon.addEventListener('animationend', function () {
-    socket.emit('score', balloon.team)
-    socket.emit('destroy', {id: balloon.id, team: balloon.team})
+    socket.emit('destroy', {id: balloon.id, team: balloon.team, click: false})
   })
   document.body.appendChild(newBalloon)
 }
@@ -91,4 +83,12 @@ socket.on('newGame', function (time) {
 
 winner.addEventListener('animationend', function () {
   winner.classList.remove('end')
+})
+
+balloonBtn.addEventListener('click', function (e) {
+  var balloon = {
+    x: ((e.pageX - 80) / window.innerWidth) * 100,
+    team: myTeam
+  }
+  socket.emit('balloon', balloon)
 })

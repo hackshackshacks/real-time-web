@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "uglify": "browserify assets/js/main.js | uglifyjs > assets/js/bundle.js && uglifycss assets/css/main.css > assets/css/min.css",
-    "start": "npm run uglify && node app.js"
+    "start": "npm run uglify && node app.js",
+    "watch": "npm run start && nodemon app.js"
   },
   "repository": {
     "type": "git",
