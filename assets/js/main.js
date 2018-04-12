@@ -28,7 +28,7 @@ function createBalloon (balloon) {
   })
   newBalloon.addEventListener('animationend', function () {
     socket.emit('score', balloon.team)
-    socket.emit('destroy', balloon.id)
+    socket.emit('destroy', {id: balloon.id})
   })
   document.body.appendChild(newBalloon)
 }
