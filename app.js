@@ -21,13 +21,17 @@ let nextUserTeam = 'blue'
 let balloonCount = 0
 let blueScore = 0
 let redScore = 0
-let gameTimer = 10
+let gameDuration = 10
+let gameTimer = gameDuration
+let gameActive = true
 
 setInterval(function () {
-  io.emit('gameTime', gameTimer)
   if (gameTimer > 0) {
+    io.emit('gameTime', gameTimer)
     gameTimer--
-  } else {
+  } else if (gameTimer === 0 && gameActive) {
+    io.emit('gameTime', gameTimer)
+    gameActive = false
     let winner
     if (redScore > blueScore) {
       winner = 'red'
@@ -40,7 +44,9 @@ setInterval(function () {
     setTimeout(function () {
       redScore = 0
       blueScore = 0
-      gameTimer = 10
+      gameTimer = gameDuration
+      gameActive = true
+      io.emit('score', {redScore: redScore, blueScore: blueScore})
       io.emit('newGame', gameTimer)
     }, 5000)
   }
@@ -49,11 +55,9 @@ setInterval(function () {
 io.on('connection', function (socket) {
   io.emit('team', nextUserTeam)
   if (nextUserTeam === 'blue') {
-    console.log('a blue user connected')
     nextUserTeam = 'red'
     socket.team = 'red'
   } else {
-    console.log('a red user connected')
     nextUserTeam = 'blue'
     socket.team = 'blue'
   }
