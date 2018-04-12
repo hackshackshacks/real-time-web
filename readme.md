@@ -1,28 +1,28 @@
-# Real Time Web course repo
+# Real Time Web course repo - week 1
+## What
+For my first week of practice in the world of real-time web, I created a simple balloon game. The goal is to gain more point than the other team. You can score point by creating balloons and have them leave the screen, or by destroying the other team's balloons.
 
-This is the course repo for the 2018 edition of the course 'Real Time Web' which is part of the minor 'web' taught at the University of Applied Sciences Amsterdam.
+## Demo
+View a demo [here](https://ballonnen.herokuapp.com/)
 
-During this course, students will:
-* Build a Node Web App which consumes an external data source through an API and serves a frontend using routing and templating techniques.
-* Create a "live" web app which reflects changes to the back-end data model in reactive front-end views, using real-time, event-based, messaging technologies like sockets or server-sent-events.
-* Describe their work in a professional readme with insightful diagrams showing the life cycle of their data.
+## How
+### Getting started
+To get started first clone this repository
 
-## Week 1
-[Slides](https://drive.google.com/open?id=1QxeKsSXnf9poJFWoEe_slHuMb7apB-2eNyUTzi18kcQ)
+`git clone git@github.com:hackshackshacks/real-time-web.git`
 
-[Assignments](https://drive.google.com/open?id=1OUspHz0enLpoVjbyHMHpAQCjSEmkn8rfHbkoSuwjw4M) (in Dutch)
+Secondly navigate to this project with your terminal
 
-## Week 2
-[Slides](https://drive.google.com/open?id=1-tI7rFjHchbph6FEqpNvDi7XCh3Uy-3bohi_jBdZhcQ)
+` cd projectPath `
 
-[Assignments](https://drive.google.com/open?id=1rjE1bG-rrgfEOssMxCYr7Q0Ba5BJs9WKkvVvjI7y2fQ) (in Dutch)
+Run npm install to collect the required packages
 
-## Week 3
-[Slides](https://drive.google.com/open?id=1BHoe8Fif7nLA00V4WEANJANnObxHBnVnwnQHnfXl4aM)
+`npm install`
 
-[Assignments](https://drive.google.com/open?id=1zoRC5kDeSQad8vdi62u6AEj_SfpvPzKE7wjYTsdO2JI) (in Dutch)
+Run npm run watch to start the app and watch for changes with using [nodemon](https://www.npmjs.com/package/nodemon)
 
-## Grading
-In the first and second week you will receive oral feedback on your assignments. In week three you will have a chance to present your final assignment during an oral exam. This assessment will make up 100% of your grade for this course.
+`npm run watch`
 
-> If you're seeing this message on a forked repo, it means one of our students hasn't changed the description yet 😈
+## Dependencies
+### Socket.io
+For this project I used [Socket.io](https://socket.io/) to enable real time updates in my app. Socket.io allows Javascript to emit changes which the server will relay to all active users.
