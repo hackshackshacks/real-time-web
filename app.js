@@ -24,6 +24,9 @@ let redScore = 0
 let gameDuration = 30
 let gameTimer = gameDuration
 let gameActive = true
+let destroyed = []
+let redTeam = []
+let blueTeam = []
 
 setInterval(function () {
   if (gameTimer > 0) {
@@ -52,15 +55,28 @@ setInterval(function () {
   }
 }, 1000)
 
-io.on('connection', function (socket) {
-  io.emit('team', nextUserTeam)
-  if (nextUserTeam === 'blue') {
-    nextUserTeam = 'red'
-    socket.team = 'red'
-  } else {
-    nextUserTeam = 'blue'
-    socket.team = 'blue'
+function joinTeam (id) {
+  if (redTeam.length > blueTeam.length) {
+    blueTeam.push(id)
+    io.emit('team', 'blue')
+    return 'blue'
+  } else if (redTeam.length <= blueTeam.length) {
+    redTeam.push(id)
+    io.emit('team', 'red')
+    return 'red'
   }
+}
+function leaveTeam (team, id) {
+  if (team === 'red') {
+    redTeam = redTeam.filter(user => user !== id)
+  } else if (team === 'blue') {
+    blueTeam = blueTeam.filter(user => user !== id)
+  }
+}
+io.on('connection', function (socket) {
+  socket.team = joinTeam(socket.id)
+  io.emit('score', {redScore: redScore, blueScore: blueScore})
+
   socket.on('balloon', function (balloon) {
     balloonCount++
     balloon.id = balloonCount
@@ -68,13 +84,15 @@ io.on('connection', function (socket) {
   })
   socket.on('destroy', function (balloon) {
     io.emit('destroy', balloon.id)
-    if (balloon.team === 'blue') {
+    if (balloon.team === 'blue' && !destroyed.includes(balloon.id)) {
+      destroyed.push(balloon.id)
       if (balloon.click) {
         redScore++
       } else {
         blueScore++
       }
-    } else {
+    } else if (balloon.team === 'red' && !destroyed.includes(balloon.id)) {
+      destroyed.push(balloon.id)
       if (balloon.click) {
         blueScore++
       } else {
@@ -92,7 +110,12 @@ io.on('connection', function (socket) {
     io.emit('score', {redScore: redScore, blueScore: blueScore})
   })
   socket.on('disconnect', function () {
-    console.log('a user disconnected')
+    leaveTeam(socket.team, socket.id)
+    if (socket.team === 'red') {
+      console.log('a red user disconnected')
+    } else {
+      console.log('a blue user disconnected')
+    }   
   })
 })
 
