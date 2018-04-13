@@ -3,7 +3,8 @@
 For my first week of practice in the world of real-time web, I created a simple balloon game. The goal is to gain more point than the other team. You can score point by creating balloons and have them leave the screen, or by destroying the other team's balloons.
 
 ## Demo
-View a demo [here](https://ballonnen.herokuapp.com/)
+![Demo gif](https://github.com/hackshackshacks/real-time-web/blob/master/readme_images/demo.gif?raw=true)
+View a live  demo [here](https://ballonnen.herokuapp.com/)
 
 ## How
 ### Getting started
